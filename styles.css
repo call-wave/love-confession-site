@@ -1,15 +1,16 @@
 :root {
   color-scheme: dark;
-  --ink: #fff8f4;
-  --muted: #f3d7d3;
-  --deep: #21131f;
-  --plum: #34162c;
-  --rose: #ff5f91;
-  --coral: #ff8a6b;
-  --gold: #ffd37a;
-  --teal: #75eadb;
-  --glass: rgba(255, 248, 244, 0.12);
-  --line: rgba(255, 248, 244, 0.22);
+  --ink: #231426;
+  --light: #fffafc;
+  --muted: #604865;
+  --deep: #2d1635;
+  --bubble: #ff6fb1;
+  --pop: #ffdc5f;
+  --mint: #70f2cd;
+  --sky: #78c8ff;
+  --grape: #8a63ff;
+  --glass: rgba(255, 255, 255, 0.7);
+  --line: rgba(35, 20, 38, 0.14);
   font-family: "Segoe UI", Tahoma, sans-serif;
 }
 
@@ -27,9 +28,9 @@ body {
   overflow-x: hidden;
   color: var(--ink);
   background:
-    radial-gradient(circle at top left, rgba(255, 95, 145, 0.28), transparent 34rem),
-    radial-gradient(circle at 88% 26%, rgba(117, 234, 219, 0.18), transparent 28rem),
-    linear-gradient(135deg, #1b111d 0%, #35192f 44%, #151827 100%);
+    radial-gradient(circle at top left, rgba(255, 220, 95, 0.72), transparent 28rem),
+    radial-gradient(circle at 88% 18%, rgba(112, 242, 205, 0.55), transparent 28rem),
+    linear-gradient(135deg, #fff2fb 0%, #e9fbff 44%, #fff8d8 100%);
 }
 
 button,
@@ -67,8 +68,8 @@ a {
 
 .hero__shade {
   background:
-    linear-gradient(to top, rgba(22, 13, 22, 0.96) 0%, rgba(22, 13, 22, 0.48) 45%, rgba(22, 13, 22, 0.18) 100%),
-    linear-gradient(90deg, rgba(22, 13, 22, 0.76), rgba(22, 13, 22, 0.1));
+    linear-gradient(to top, rgba(255, 250, 252, 0.96) 0%, rgba(255, 250, 252, 0.38) 44%, rgba(255, 250, 252, 0.08) 100%),
+    linear-gradient(90deg, rgba(255, 250, 252, 0.82), rgba(255, 250, 252, 0.08));
 }
 
 .hero__content {
@@ -82,7 +83,7 @@ a {
 
 .eyebrow {
   margin: 0 0 12px;
-  color: var(--teal);
+  color: var(--grape);
   font-size: 0.86rem;
   font-weight: 700;
   letter-spacing: 0;
@@ -99,6 +100,7 @@ h2 {
 h1 {
   font-size: clamp(2.6rem, 8vw, 6.8rem);
   text-wrap: balance;
+  text-shadow: 4px 4px 0 rgba(255, 220, 95, 0.7);
 }
 
 h2 {
@@ -127,34 +129,34 @@ p {
 
 .button {
   min-height: 48px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
+  border: 2px solid var(--ink);
+  border-radius: 18px;
   padding: 12px 22px;
   color: var(--ink);
   text-decoration: none;
   cursor: pointer;
-  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  box-shadow: 5px 5px 0 rgba(35, 20, 38, 0.16);
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
 }
 
 .button:hover {
-  transform: translateY(-2px);
+  transform: translate(-2px, -2px) rotate(-1deg);
+  box-shadow: 8px 8px 0 rgba(35, 20, 38, 0.18);
 }
 
 .button--primary {
-  border-color: transparent;
-  background: linear-gradient(135deg, var(--rose), var(--coral));
-  box-shadow: 0 18px 38px rgba(255, 95, 145, 0.28);
+  background: linear-gradient(135deg, var(--bubble), var(--pop));
 }
 
 .button--ghost {
-  background: rgba(255, 248, 244, 0.1);
-  backdrop-filter: blur(14px);
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(10px);
 }
 
 .ticker {
   overflow: hidden;
   border-block: 1px solid var(--line);
-  background: rgba(255, 248, 244, 0.08);
+  background: var(--deep);
 }
 
 .ticker__track {
@@ -166,7 +168,7 @@ p {
 }
 
 .ticker span {
-  color: var(--gold);
+  color: var(--pop);
   white-space: nowrap;
 }
 
@@ -202,7 +204,8 @@ p {
   border-radius: 8px;
   padding: 18px;
   background: var(--glass);
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(12px);
+  box-shadow: 8px 8px 0 rgba(255, 111, 177, 0.18);
   transform: translateY(18px);
   opacity: 0;
   transition: opacity 520ms ease, transform 520ms ease, background 180ms ease;
@@ -214,7 +217,8 @@ p {
 }
 
 .reason-card:hover {
-  background: rgba(255, 248, 244, 0.18);
+  background: rgba(255, 255, 255, 0.92);
+  transform: translateY(-4px) rotate(1deg);
 }
 
 .reason-card strong {
@@ -242,7 +246,7 @@ p {
   margin-top: 10px;
   overflow: hidden;
   border-radius: 999px;
-  background: rgba(255, 248, 244, 0.12);
+  background: rgba(35, 20, 38, 0.12);
 }
 
 .score__bar span {
@@ -250,7 +254,7 @@ p {
   width: 0%;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--teal), var(--gold), var(--rose));
+  background: linear-gradient(90deg, var(--mint), var(--pop), var(--bubble));
   transition: width 220ms ease;
 }
 
@@ -261,9 +265,9 @@ p {
   border: 1px solid var(--line);
   border-radius: 8px;
   background:
-    linear-gradient(rgba(255, 248, 244, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 248, 244, 0.08) 1px, transparent 1px),
-    rgba(255, 248, 244, 0.07);
+    linear-gradient(rgba(35, 20, 38, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(35, 20, 38, 0.08) 1px, transparent 1px),
+    rgba(255, 255, 255, 0.68);
   background-size: 48px 48px;
 }
 
@@ -274,8 +278,8 @@ p {
   border: 0;
   border-radius: 50%;
   color: #fff;
-  background: linear-gradient(135deg, var(--rose), var(--gold));
-  box-shadow: 0 12px 24px rgba(255, 95, 145, 0.28);
+  background: linear-gradient(135deg, var(--bubble), var(--grape));
+  box-shadow: 0 12px 24px rgba(255, 111, 177, 0.28);
   cursor: pointer;
   animation: floatUp 4.8s linear forwards;
 }
@@ -306,20 +310,21 @@ p {
   border-radius: 8px;
   padding: 16px;
   color: var(--ink);
-  background: rgba(255, 248, 244, 0.1);
+  background: rgba(255, 255, 255, 0.76);
   cursor: pointer;
+  box-shadow: 5px 5px 0 rgba(112, 242, 205, 0.34);
 }
 
 .quiz__choices button:hover,
 .quiz__choices button.is-picked {
-  border-color: var(--gold);
-  background: rgba(255, 211, 122, 0.16);
+  border-color: var(--ink);
+  background: rgba(255, 220, 95, 0.78);
 }
 
 .quiz__result,
 .proposal__reply {
   min-height: 34px;
-  color: var(--gold);
+  color: var(--grape);
   font-weight: 700;
 }
 
@@ -346,9 +351,9 @@ p {
   max-width: min(92vw, 520px);
   padding: 13px 18px;
   border: 1px solid var(--line);
-  border-radius: 999px;
-  color: var(--ink);
-  background: rgba(33, 19, 31, 0.82);
+  border-radius: 18px;
+  color: var(--light);
+  background: rgba(45, 22, 53, 0.9);
   backdrop-filter: blur(16px);
   transform: translate(-50%, 18px);
   opacity: 0;

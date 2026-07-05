@@ -1,12 +1,12 @@
 const reasons = [
-  ["01", "เธอทำให้วันธรรมดาดูมีอะไรพิเศษ"],
-  ["02", "เวลาเธอยิ้ม โลกเหมือนลดเสียงดังลงนิดหนึ่ง"],
-  ["03", "คุยกับเธอแล้วผมอยากเป็นคนที่ดีกว่าเดิม"],
-  ["04", "เธอมีความน่ารักแบบที่ไม่ต้องพยายาม"],
-  ["05", "ผมจำรายละเอียดเล็ก ๆ ของเธอได้โดยไม่รู้ตัว"],
-  ["06", "อยากเป็นคนที่เธอหันมาแล้วเจอเสมอ"],
-  ["07", "ถ้าวันไหนเหนื่อย ผมอยากเป็นที่พักใจให้"],
-  ["08", "เพราะเธอคือเธอ แค่นั้นก็ชัดมากแล้ว"],
+  ["01", "เธอยิ้มทีเดียว สมองผมกด save อัตโนมัติ"],
+  ["02", "คุยกับเธอแล้วเน็ตในใจแรงขึ้นทันที"],
+  ["03", "เธอน่ารักแบบไม่ต้องใช้ฟิลเตอร์"],
+  ["04", "เห็นชื่อเธอเด้งมา ผมทำเป็นนิ่ง แต่ใจวิ่งแล้ว"],
+  ["05", "ถ้าเธอเป็นเพลง คงเป็นเพลงที่ผมกด replay"],
+  ["06", "อยากชวนไปกินของอร่อย แล้วแกล้งถามว่าอิ่มยัง"],
+  ["07", "มุกผมอาจฝืด แต่ความชอบจริงนะ"],
+  ["08", "สรุปง่าย ๆ คือแพ้เธอแบบไม่ต้องนับคะแนน"],
 ];
 
 const reasonGrid = document.querySelector("#reasonGrid");
@@ -106,7 +106,7 @@ function spawnHeart() {
     scoreText.textContent = `${score} / 8`;
     scoreBar.style.width = `${(score / 8) * 100}%`;
     if (score === 8) {
-      showToast("ปลดล็อกคำถามสุดท้ายแล้ว เลื่อนลงไปดูได้เลย");
+      showToast("แต้มเขินเต็มแล้ว ไปเจอ final boss ได้เลย");
       document.querySelector("#proposal").scrollIntoView({ behavior: "smooth", block: "center" });
     }
   });
@@ -139,12 +139,12 @@ quizChoices.addEventListener("click", (event) => {
   if (!button) return;
   quizChoices.querySelectorAll("button").forEach((item) => item.classList.remove("is-picked"));
   button.classList.add("is-picked");
-  quizResult.textContent = `งั้นเดตแรกเป็น "${button.dataset.answer}" นะ ผมจองหน้าที่ทำให้เธอยิ้มเอง`;
+  quizResult.textContent = `"${button.dataset.answer}" โอเค อันนี้น่าจะเด้งในใจผมทั้งวัน`;
   addParticles(window.innerWidth / 2, button.getBoundingClientRect().top, 28);
 });
 
 yesButton.addEventListener("click", () => {
-  reply.textContent = "เย้! งั้นตั้งแต่วันนี้ขอเป็นคนดูแลรอยยิ้มของเธอนะ";
+  reply.textContent = "โอเค งั้นผมเริ่มซ้อมเขินแบบจริงจังละนะ";
   heartRain();
   addParticles(window.innerWidth / 2, window.innerHeight / 2, 120);
 });
@@ -154,11 +154,11 @@ noButton.addEventListener("mouseenter", () => {
   const x = Math.random() * 180 - 90;
   const y = Math.random() * 100 - 50;
   noButton.style.transform = `translate(${x}px, ${y}px)`;
-  if (noClicks > 2) showToast("ปุ่มนี้เขิน เลยอยู่นิ่งไม่ค่อยได้");
+  if (noClicks > 2) showToast("ปุ่มนี้เขินจนยืนไม่ตรงแล้ว");
 });
 
 noButton.addEventListener("click", () => {
-  showToast("ไม่เป็นไร ผมรอคำตอบด้วยใจเต้นเบา ๆ");
+  showToast("โอเค ให้เขินก่อน แต่ผมยังรอแบบทำทรงเท่อยู่");
 });
 
 document.querySelector("#makeItRain").addEventListener("click", heartRain);
@@ -168,4 +168,4 @@ renderReasons();
 resizeCanvas();
 animateParticles();
 startGame();
-showToast("ยินดีต้อนรับเข้าสู่ภารกิจจีบแบบตั้งใจ");
+showToast("โหลดเสร็จแล้ว ระวังโดนจีบแบบงง ๆ");
