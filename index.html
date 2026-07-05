@@ -3,94 +3,117 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ชอบเธออะ ทำไงดี</title>
+    <title>แมวส่งสารจีบ</title>
     <meta
       name="description"
-      content="เว็บจีบสาววัยรุ่นน่ารัก ตลก กวน ๆ พร้อมมินิเกมและปุ่มสารภาพรัก"
+      content="เว็บจีบสาวแบบใหม่แนวแมวส่งสาร น่ารัก ตลก เล่นได้"
     />
-    <link rel="preload" href="assets/teen-hero.png?v=2" as="image" />
-    <link rel="stylesheet" href="styles.css?v=2" />
+    <link rel="preload" href="assets/cat-mail.gif?v=1" as="image" />
+    <link rel="stylesheet" href="styles.css?v=3" />
   </head>
   <body>
-    <canvas id="sparkleCanvas" aria-hidden="true"></canvas>
-
-    <main>
-      <section class="hero" aria-label="คำสารภาพ">
-        <img class="hero__image" src="assets/teen-hero.png?v=2" alt="" />
-        <div class="hero__shade"></div>
-        <div class="hero__content">
-          <p class="eyebrow">ภารกิจลับระดับหน้าแดง</p>
-          <h1>ชอบเธออะ ทำไงดี</h1>
-          <p class="lead">
-            ไม่ได้จะเว่อร์นะ แต่เห็นเธอแล้วใจมันเด้งแจ้งเตือนทั้งวันเลย
+    <main class="app-shell">
+      <section class="cat-desk" aria-label="แมวส่งสาร">
+        <div class="cat-desk__copy">
+          <p class="badge">CAT DELIVERY SERVICE</p>
+          <h1>มีแมวฝากมาบอกว่า<br />มีคนแถวนี้ชอบเธอ</h1>
+          <p class="intro">
+            ไม่ต้องตกใจ น้องแมวได้รับค่าจ้างเป็นขนมแมวเลีย และกำลังทำภารกิจส่งความเขินแบบมืออาชีพมาก
           </p>
-          <div class="hero__actions">
-            <a class="button button--primary" href="#confession">เปิดโหมดเขิน</a>
-            <button class="button button--ghost" id="makeItRain" type="button">กดแล้วมีใจ</button>
+          <div class="quick-actions">
+            <button class="primary-action" id="startMission" type="button">เริ่มภารกิจแมว</button>
+            <button class="secondary-action" id="meowButton" type="button">แปลภาษาแมว</button>
           </div>
         </div>
-      </section>
 
-      <section class="ticker" aria-label="เหตุผลที่ชอบ">
-        <div class="ticker__track">
-          <span>เธอน่ารักเกินต้าน</span>
-          <span>ใจผม lag ไป 0.5 วิ</span>
-          <span>ขอยืมรอยยิ้มไปตั้ง wallpaper</span>
-          <span>ไม่ได้อ่อย แค่ตั้งใจจีบ</span>
-          <span>สถานะ: เขินแบบไม่พัก</span>
-          <span>เธอ = notification สำคัญ</span>
+        <div class="cat-card" aria-live="polite">
+          <div class="cat-card__top">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <img src="assets/cat-mail.gif?v=1" alt="แมวถือจดหมายขยับได้" />
+          <p id="catCaption">เหมียวแปลว่า: เขาชอบเธอจริง ไม่ได้ซ้อม</p>
         </div>
       </section>
 
-      <section class="section" id="confession">
-        <div class="section__intro">
-          <p class="eyebrow">หลักฐานประกอบคดี</p>
-          <h2>ทำไมเธอน่ารักจนผมต้องทำเว็บ</h2>
+      <section class="mission-board" id="mission">
+        <div class="board-header">
+          <p class="badge">MISSION BOARD</p>
+          <h2>ช่วยแมวส่งจดหมายให้สำเร็จ</h2>
         </div>
-        <div class="reason-grid" id="reasonGrid"></div>
+        <div class="mission-grid">
+          <button class="mission-tile" type="button" data-points="25" data-message="แมวได้รับปลาทูแล้ว ความกล้าเพิ่ม 25%">
+            <strong>ให้ปลาทู</strong>
+            <span>เพิ่มพลังใจให้แมวก่อนส่งสาร</span>
+          </button>
+          <button class="mission-tile" type="button" data-points="25" data-message="ติดสติกเกอร์หัวใจแล้ว จดหมายดูน่ารักขึ้น 300%">
+            <strong>ติดสติกเกอร์</strong>
+            <span>เลือกหัวใจแปะซองแบบไม่เนียน</span>
+          </button>
+          <button class="mission-tile" type="button" data-points="25" data-message="แมวซ้อมพูดแล้ว แต่ยังออกเสียงว่า เมี๊ยว">
+            <strong>ซ้อมประโยค</strong>
+            <span>ประโยคง่าย ๆ ว่า ชอบนะ</span>
+          </button>
+          <button class="mission-tile" type="button" data-points="25" data-message="ส่งจดหมายแล้ว แมวทำหน้าภูมิใจมาก">
+            <strong>กดกริ่ง</strong>
+            <span>ขั้นตอนสุดท้ายก่อนเปิดซอง</span>
+          </button>
+        </div>
+        <div class="meter">
+          <div class="meter__label">
+            <span>ค่าความกล้า</span>
+            <strong id="meterText">0%</strong>
+          </div>
+          <div class="meter__track"><span id="meterFill"></span></div>
+        </div>
       </section>
 
-      <section class="section section--split">
-        <div>
-          <p class="eyebrow">มินิเกมกันเขิน</p>
-          <h2>เก็บแต้มความเขินให้ครบ 8</h2>
-          <p>
-            กดหัวใจที่เด้งขึ้นมาให้ทัน ถ้าครบแปลว่าเว็บอนุญาตให้ผมยิงมุกจีบต่อ
-          </p>
-          <div class="score">
-            <span id="scoreText">0 / 8</span>
-            <div class="score__bar"><span id="scoreBar"></span></div>
+      <section class="chat-room">
+        <div class="phone">
+          <div class="phone__bar">
+            <span>Meow Mail</span>
+            <b>online</b>
+          </div>
+          <div class="messages" id="messages">
+            <p class="bubble bubble--cat">เหมียว: เจ้าของเว็บบอกว่าเธอน่ารักเกินระบบประมวลผล</p>
+            <p class="bubble bubble--me">แล้วต้องทำไงต่ออะ</p>
+            <p class="bubble bubble--cat">ตอบคำถามแมวก่อน เดี๋ยวเปิดซองให้</p>
           </div>
         </div>
-        <div class="heart-game" id="heartGame" aria-label="เกมเก็บหัวใจ"></div>
+
+        <div class="stamp-lab">
+          <p class="badge">STAMP PICKER</p>
+          <h2>เลือกตราประทับบนซอง</h2>
+          <div class="stamp-options" id="stampOptions">
+            <button type="button" data-stamp="เขิน">เขิน</button>
+            <button type="button" data-stamp="คิดถึง">คิดถึง</button>
+            <button type="button" data-stamp="จีบจริง">จีบจริง</button>
+          </div>
+          <p id="stampResult">แมวรอเลือกตราประทับอยู่</p>
+        </div>
       </section>
 
-      <section class="section quiz">
-        <p class="eyebrow">quiz วัดความน่ารัก</p>
-        <h2>ถ้าเธอเป็น notification จะขึ้นว่าอะไร</h2>
-        <div class="quiz__choices" id="quizChoices">
-          <button type="button" data-answer="แบตเต็ม">แบตใจ +100%</button>
-          <button type="button" data-answer="ยิ้มด่วน">กรุณายิ้มเดี๋ยวนี้</button>
-          <button type="button" data-answer="แอบชอบ">มีคนแอบชอบอยู่แถวนี้</button>
+      <section class="final-letter" id="letter">
+        <div class="envelope" id="envelope">
+          <div class="envelope__flap"></div>
+          <div class="envelope__paper">
+            <p>ถึงคนที่ทำให้แมวต้องวิ่งมาส่งสาร</p>
+            <h2>ให้เราจีบเธอได้ไหม</h2>
+            <p>
+              ถ้าเธอยิ้มตอนอ่าน แปลว่าแมวทำงานสำเร็จ ส่วนคนเขียนเว็บกำลังดีใจแบบเก็บทรงไม่อยู่
+            </p>
+            <div class="letter-actions">
+              <button class="primary-action" id="yesButton" type="button">ได้ ให้แมวเป็นพยาน</button>
+              <button class="secondary-action" id="shyButton" type="button">ขอเขินก่อน</button>
+            </div>
+            <p class="reply" id="reply"></p>
+          </div>
         </div>
-        <p class="quiz__result" id="quizResult" aria-live="polite"></p>
-      </section>
-
-      <section class="proposal" id="proposal">
-        <p class="eyebrow">final boss</p>
-        <h2>ให้ผมจีบต่อได้ปะ</h2>
-        <p>
-          ถ้าตอบตกลง ผมจะเลิกทำตัวเนียน แล้วจีบแบบตั้งใจมากขึ้นอีกนิด
-        </p>
-        <div class="proposal__buttons">
-          <button class="button button--primary" id="yesButton" type="button">ได้ดิ</button>
-          <button class="button button--ghost proposal__no" id="noButton" type="button">ขอเขินก่อน</button>
-        </div>
-        <p class="proposal__reply" id="reply" aria-live="polite"></p>
       </section>
     </main>
 
-    <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="script.js?v=2"></script>
+    <div class="toast" id="toast"></div>
+    <script src="script.js?v=3"></script>
   </body>
 </html>

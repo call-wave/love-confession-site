@@ -1,171 +1,103 @@
-const reasons = [
-  ["01", "เธอยิ้มทีเดียว สมองผมกด save อัตโนมัติ"],
-  ["02", "คุยกับเธอแล้วเน็ตในใจแรงขึ้นทันที"],
-  ["03", "เธอน่ารักแบบไม่ต้องใช้ฟิลเตอร์"],
-  ["04", "เห็นชื่อเธอเด้งมา ผมทำเป็นนิ่ง แต่ใจวิ่งแล้ว"],
-  ["05", "ถ้าเธอเป็นเพลง คงเป็นเพลงที่ผมกด replay"],
-  ["06", "อยากชวนไปกินของอร่อย แล้วแกล้งถามว่าอิ่มยัง"],
-  ["07", "มุกผมอาจฝืด แต่ความชอบจริงนะ"],
-  ["08", "สรุปง่าย ๆ คือแพ้เธอแบบไม่ต้องนับคะแนน"],
+const catLines = [
+  "เหมียวแปลว่า: เขาชอบเธอจริง ไม่ได้ซ้อม",
+  "เหมียววว = เห็นเธอแล้วใจทำเสียงแจ้งเตือน",
+  "เมี๊ยว? = ขออนุญาตน่ารักใส่ได้ไหม",
+  "มร้าว = คนเขียนเว็บกำลังเขิน แต่ฝากแมวพูดแทน",
 ];
 
-const reasonGrid = document.querySelector("#reasonGrid");
+const missionButtons = document.querySelectorAll(".mission-tile");
+const meterFill = document.querySelector("#meterFill");
+const meterText = document.querySelector("#meterText");
+const messages = document.querySelector("#messages");
+const catCaption = document.querySelector("#catCaption");
+const stampOptions = document.querySelector("#stampOptions");
+const stampResult = document.querySelector("#stampResult");
 const toast = document.querySelector("#toast");
-const game = document.querySelector("#heartGame");
-const scoreText = document.querySelector("#scoreText");
-const scoreBar = document.querySelector("#scoreBar");
-const quizChoices = document.querySelector("#quizChoices");
-const quizResult = document.querySelector("#quizResult");
-const yesButton = document.querySelector("#yesButton");
-const noButton = document.querySelector("#noButton");
 const reply = document.querySelector("#reply");
-const canvas = document.querySelector("#sparkleCanvas");
-const ctx = canvas.getContext("2d");
-
-let score = 0;
-let noClicks = 0;
-let particles = [];
+let courage = 0;
+let lineIndex = 0;
 
 function showToast(message) {
   toast.textContent = message;
   toast.classList.add("is-visible");
   window.clearTimeout(showToast.timer);
-  showToast.timer = window.setTimeout(() => toast.classList.remove("is-visible"), 2600);
+  showToast.timer = window.setTimeout(() => toast.classList.remove("is-visible"), 2300);
 }
 
-function renderReasons() {
-  reasonGrid.innerHTML = reasons
-    .map(([number, text]) => `<article class="reason-card"><strong>${number}</strong><span>${text}</span></article>`)
-    .join("");
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) entry.target.classList.add("is-visible");
-      });
-    },
-    { threshold: 0.2 }
-  );
-
-  document.querySelectorAll(".reason-card").forEach((card, index) => {
-    card.style.transitionDelay = `${index * 70}ms`;
-    observer.observe(card);
-  });
+function addBubble(text, type = "cat") {
+  const bubble = document.createElement("p");
+  bubble.className = `bubble bubble--${type}`;
+  bubble.textContent = text;
+  messages.appendChild(bubble);
+  messages.scrollTop = messages.scrollHeight;
 }
 
-function resizeCanvas() {
-  canvas.width = window.innerWidth * window.devicePixelRatio;
-  canvas.height = window.innerHeight * window.devicePixelRatio;
-  ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
-}
-
-function addParticles(x, y, amount = 24) {
+function popCute(x = window.innerWidth / 2, y = window.innerHeight / 2, amount = 18) {
+  const icons = ["♡", "✦", "แมว", "จุ๊บ", "เมี๊ยว"];
   for (let i = 0; i < amount; i += 1) {
-    particles.push({
-      x,
-      y,
-      vx: (Math.random() - 0.5) * 8,
-      vy: Math.random() * -6 - 1,
-      life: 80 + Math.random() * 40,
-      hue: 330 + Math.random() * 42,
-      size: 2 + Math.random() * 4,
-    });
+    const item = document.createElement("span");
+    item.className = "floaty";
+    item.textContent = icons[i % icons.length];
+    item.style.left = `${x}px`;
+    item.style.top = `${y}px`;
+    item.style.color = i % 2 ? "#ff74a8" : "#241a22";
+    item.style.setProperty("--x", `${(Math.random() - 0.5) * 280}px`);
+    item.style.setProperty("--y", `${(Math.random() - 0.5) * 220}px`);
+    document.body.appendChild(item);
+    window.setTimeout(() => item.remove(), 950);
   }
 }
 
-function animateParticles() {
-  ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-  particles = particles.filter((p) => p.life > 0);
-  particles.forEach((p) => {
-    p.x += p.vx;
-    p.y += p.vy;
-    p.vy += 0.09;
-    p.life -= 1;
-    ctx.globalAlpha = Math.max(p.life / 100, 0);
-    ctx.fillStyle = `hsl(${p.hue} 92% 70%)`;
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-    ctx.fill();
-  });
-  ctx.globalAlpha = 1;
-  requestAnimationFrame(animateParticles);
-}
+document.querySelector("#startMission").addEventListener("click", () => {
+  document.querySelector("#mission").scrollIntoView({ behavior: "smooth" });
+  showToast("แมวใส่หมวกพนักงานส่งของแล้ว");
+});
 
-function spawnHeart() {
-  const heart = document.createElement("button");
-  heart.type = "button";
-  heart.className = "floating-heart";
-  heart.textContent = "♥";
-  heart.style.left = `${Math.random() * 86 + 4}%`;
-  heart.style.animationDuration = `${3.6 + Math.random() * 2.2}s`;
-  heart.addEventListener("click", () => {
-    const rect = heart.getBoundingClientRect();
-    addParticles(rect.left + rect.width / 2, rect.top + rect.height / 2, 18);
-    heart.remove();
-    score = Math.min(8, score + 1);
-    scoreText.textContent = `${score} / 8`;
-    scoreBar.style.width = `${(score / 8) * 100}%`;
-    if (score === 8) {
-      showToast("แต้มเขินเต็มแล้ว ไปเจอ final boss ได้เลย");
-      document.querySelector("#proposal").scrollIntoView({ behavior: "smooth", block: "center" });
+document.querySelector("#meowButton").addEventListener("click", () => {
+  lineIndex = (lineIndex + 1) % catLines.length;
+  catCaption.textContent = catLines[lineIndex];
+  addBubble(catLines[lineIndex], "cat");
+});
+
+missionButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    if (button.classList.contains("is-done")) {
+      showToast("อันนี้แมวทำแล้ว ขอขนมเพิ่มแทนได้ไหม");
+      return;
+    }
+    button.classList.add("is-done");
+    courage = Math.min(100, courage + Number(button.dataset.points));
+    meterFill.style.width = `${courage}%`;
+    meterText.textContent = `${courage}%`;
+    addBubble(button.dataset.message, "cat");
+    showToast(button.dataset.message);
+    const rect = button.getBoundingClientRect();
+    popCute(rect.left + rect.width / 2, rect.top + rect.height / 2, 12);
+    if (courage === 100) {
+      addBubble("ภารกิจครบแล้ว เปิดซองได้เลย!", "cat");
+      document.querySelector("#letter").scrollIntoView({ behavior: "smooth", block: "center" });
     }
   });
-  game.appendChild(heart);
-  window.setTimeout(() => heart.remove(), 6200);
-}
+});
 
-function startGame() {
-  spawnHeart();
-  window.setInterval(spawnHeart, 820);
-}
-
-function heartRain() {
-  for (let i = 0; i < 34; i += 1) {
-    const heart = document.createElement("span");
-    heart.className = "burst-heart";
-    heart.textContent = "♥";
-    heart.style.left = `${Math.random() * 100}vw`;
-    heart.style.top = `${Math.random() * 80}vh`;
-    heart.style.color = i % 3 === 0 ? "#ffd37a" : i % 3 === 1 ? "#75eadb" : "#ff5f91";
-    heart.style.setProperty("--x", `${(Math.random() - 0.5) * 260}px`);
-    heart.style.setProperty("--y", `${(Math.random() - 0.5) * 260}px`);
-    document.body.appendChild(heart);
-    window.setTimeout(() => heart.remove(), 1100);
-  }
-}
-
-quizChoices.addEventListener("click", (event) => {
+stampOptions.addEventListener("click", (event) => {
   const button = event.target.closest("button");
   if (!button) return;
-  quizChoices.querySelectorAll("button").forEach((item) => item.classList.remove("is-picked"));
+  stampOptions.querySelectorAll("button").forEach((item) => item.classList.remove("is-picked"));
   button.classList.add("is-picked");
-  quizResult.textContent = `"${button.dataset.answer}" โอเค อันนี้น่าจะเด้งในใจผมทั้งวัน`;
-  addParticles(window.innerWidth / 2, button.getBoundingClientRect().top, 28);
+  stampResult.textContent = `ประทับตรา "${button.dataset.stamp}" แล้ว แมวพยักหน้าแบบจริงจัง`;
+  addBubble(`เลือกตรา "${button.dataset.stamp}" เรียบร้อย ซองนี้ดูมีพิรุธมาก`, "cat");
 });
 
-yesButton.addEventListener("click", () => {
-  reply.textContent = "โอเค งั้นผมเริ่มซ้อมเขินแบบจริงจังละนะ";
-  heartRain();
-  addParticles(window.innerWidth / 2, window.innerHeight / 2, 120);
+document.querySelector("#yesButton").addEventListener("click", () => {
+  reply.textContent = "แมวกระโดดดีใจ ส่วนคนเขียนเว็บน่าจะยิ้มค้างแล้ว";
+  addBubble("ภารกิจสำเร็จ! ขอปลาทูโบนัส 2 ชิ้น", "cat");
+  popCute(window.innerWidth / 2, window.innerHeight / 2, 44);
 });
 
-noButton.addEventListener("mouseenter", () => {
-  noClicks += 1;
-  const x = Math.random() * 180 - 90;
-  const y = Math.random() * 100 - 50;
-  noButton.style.transform = `translate(${x}px, ${y}px)`;
-  if (noClicks > 2) showToast("ปุ่มนี้เขินจนยืนไม่ตรงแล้ว");
+document.querySelector("#shyButton").addEventListener("click", () => {
+  reply.textContent = "ได้เลย เขินก่อนก็ได้ แมวจะนั่งเฝ้าซองให้";
+  addBubble("โอเค แมวนั่งรอแบบไม่กดดัน แต่มองอยู่นะ", "cat");
 });
 
-noButton.addEventListener("click", () => {
-  showToast("โอเค ให้เขินก่อน แต่ผมยังรอแบบทำทรงเท่อยู่");
-});
-
-document.querySelector("#makeItRain").addEventListener("click", heartRain);
-window.addEventListener("resize", resizeCanvas);
-
-renderReasons();
-resizeCanvas();
-animateParticles();
-startGame();
-showToast("โหลดเสร็จแล้ว ระวังโดนจีบแบบงง ๆ");
+showToast("แมวพร้อมส่งสารแล้ว");
