@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ให้หัวใจช่วยพูดแทน</title>
+    <meta
+      name="description"
+      content="เว็บจีบสาวแบบอินเทอร์แอคทีฟ มีจดหมายรัก มินิเกม และคำขอเป็นแฟน"
+    />
+    <link rel="preload" href="assets/romantic-hero.png" as="image" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <canvas id="sparkleCanvas" aria-hidden="true"></canvas>
+
+    <main>
+      <section class="hero" aria-label="คำสารภาพ">
+        <img class="hero__image" src="assets/romantic-hero.png" alt="" />
+        <div class="hero__shade"></div>
+        <div class="hero__content">
+          <p class="eyebrow">มีบางอย่างอยากบอก</p>
+          <h1>วันนี้ขอใช้เว็บนี้จีบเธอได้ไหม</h1>
+          <p class="lead">
+            ถ้าอ่านถึงบรรทัดนี้แล้วเธอยิ้ม แม้จะแค่นิดเดียว ผมถือว่าเว็บเริ่มทำงานแล้วนะ
+          </p>
+          <div class="hero__actions">
+            <a class="button button--primary" href="#confession">เปิดจดหมาย</a>
+            <button class="button button--ghost" id="makeItRain" type="button">โปรยหัวใจ</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="ticker" aria-label="เหตุผลที่ชอบ">
+        <div class="ticker__track">
+          <span>ชอบตอนเธอยิ้ม</span>
+          <span>ชอบเสียงหัวเราะ</span>
+          <span>ชอบความใจดี</span>
+          <span>ชอบที่เป็นเธอ</span>
+          <span>อยากดูแล</span>
+          <span>อยากมีเธอในทุกวัน</span>
+        </div>
+      </section>
+
+      <section class="section" id="confession">
+        <div class="section__intro">
+          <p class="eyebrow">จดหมายฉบับสั้น</p>
+          <h2>มีเหตุผลเยอะมากที่ผมชอบเธอ</h2>
+        </div>
+        <div class="reason-grid" id="reasonGrid"></div>
+      </section>
+
+      <section class="section section--split">
+        <div>
+          <p class="eyebrow">มินิเกมเล็ก ๆ</p>
+          <h2>เก็บหัวใจให้ครบ 8 ดวง</h2>
+          <p>
+            กดหัวใจที่ลอยขึ้นมาให้ทัน พอครบแล้วเว็บจะปลดล็อกคำถามสำคัญให้เอง
+          </p>
+          <div class="score">
+            <span id="scoreText">0 / 8</span>
+            <div class="score__bar"><span id="scoreBar"></span></div>
+          </div>
+        </div>
+        <div class="heart-game" id="heartGame" aria-label="เกมเก็บหัวใจ"></div>
+      </section>
+
+      <section class="section quiz">
+        <p class="eyebrow">ทายใจ</p>
+        <h2>ถ้าได้เดตกันหนึ่งวัน อยากไปไหนที่สุด</h2>
+        <div class="quiz__choices" id="quizChoices">
+          <button type="button" data-answer="คาเฟ่">คาเฟ่เล็ก ๆ ที่ขนมอร่อย</button>
+          <button type="button" data-answer="ทะเล">เดินเล่นริมทะเลตอนเย็น</button>
+          <button type="button" data-answer="หนัง">ดูหนังแล้วหาอะไรกินต่อ</button>
+        </div>
+        <p class="quiz__result" id="quizResult" aria-live="polite"></p>
+      </section>
+
+      <section class="proposal" id="proposal">
+        <p class="eyebrow">คำถามสุดท้าย</p>
+        <h2>เป็นแฟนกันไหม</h2>
+        <p>
+          ไม่ต้องตอบเร็วก็ได้ แต่อยากให้รู้ว่าคำถามนี้ตั้งใจมากกว่าทุกบรรทัดในเว็บนี้
+        </p>
+        <div class="proposal__buttons">
+          <button class="button button--primary" id="yesButton" type="button">ตกลง</button>
+          <button class="button button--ghost proposal__no" id="noButton" type="button">ยังไม่บอก</button>
+        </div>
+        <p class="proposal__reply" id="reply" aria-live="polite"></p>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
